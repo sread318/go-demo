@@ -7,19 +7,12 @@ jobs:
       - image: postgres:9.6.2
     steps:
       - checkout
-      - run:
-        name: go get
-        command: go get -t -d -v ./...
-      - run:
-        name: go build
-        command: go build -v
+      - run: go get -t -d -v ./...
+      - run: go build -v
   test:
     working_directory: ~/go-demo
     docker:
       - image: circleci/golang:1.8.1
       - image: postgres:9.6.2
     steps:
-      - checkout
-      - run:
-        name: test
-        command: go test -v
+      - run: go test -v

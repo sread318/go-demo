@@ -9,10 +9,9 @@ jobs:
       - checkout
       - run: go get -t -d -v ./...
       - run: go build -v
-      - save_cache:
-          key: v1-myapp-{{ checksum "project.clj" }}
-          paths:
-            - $GOPATH
+      - persist_to_workspace:
+          paths: /go
+
 
   test:
     working_directory: ~/go-demo
@@ -20,12 +19,8 @@ jobs:
       - image: circleci/golang:1.8.1
       - image: postgres:9.6.2
     steps:
-      - restore_cache:
-        keys:
-          - v1-myapp-{{ checksum "project.clj" }}
-          # if cache for exact version of `project.clj` is not present then load any most recent one
-          - v1-myapp-
-
+      - attach_to_workspace:
+          paths: /go
       - run: go test -v
 workflows:
   version: 2

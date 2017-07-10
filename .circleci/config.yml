@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.8.1
+      - image: postgres:9.6.2
+    steps:
+      - checkout
+      - run:
+        name: go get
+        command: go get -t -d -v ./...
+      - run:
+        name: go build
+        command: go build -v
+  test:
+    docker:
+      - image: circleci/golang:1.8.1
+      - image: postgres:9.6.2
+    steps:
+      - checkout
+      - run:
+        name: test
+        command: go test -v

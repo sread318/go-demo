@@ -29,6 +29,6 @@ func (p *post) deletePost(db *sql.DB) error {
 	return errors.New("Not yet implemented")
 }
 
-func (p *post) getPosts(db *sql.DB) error {
+func (p *post) getPosts(db *sql.DB, start, count int) ([]post, error) {
 	return errors.New("Not yet implemented")
 }

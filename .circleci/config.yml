@@ -9,12 +9,16 @@ jobs:
       - checkout
       - run: go get -t -d -v ./...
       - run: go build -v
+      - persist_to_workspace: 
+          paths: $GOPATH
   test:
     working_directory: ~/go-demo
     docker:
       - image: circleci/golang:1.8.1
       - image: postgres:9.6.2
     steps:
+      - attach_workspace:
+          at: $GOPATH
       - run: go test -v
 workflows:
   version: 2

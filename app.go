@@ -2,6 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
+	"log"
+
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 )
@@ -12,7 +15,16 @@ type App struct {
 }
 
 func (a *App) Initialize(user, password, dbname string, host string) {
+	connectionString :=
+		fmt.Sprintf("sslmode=disable user=%s password=%s dbname=%s host=%s", user, password, dbname, host)
 
+	var err error
+	a.DB, err = sql.Open("postgres", connectionString)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	a.Router = mux.NewRouter()
 }
 
 func (a *App) Run(addr string) {

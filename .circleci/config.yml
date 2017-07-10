@@ -9,18 +9,18 @@ jobs:
       - checkout
       - run: go get -t -d -v ./...
       - run: go build -v
-      - persist_to_workspace:
-          paths: /go
-
-
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "main.go" }}
+          paths:
+            - "/go"
   test:
     working_directory: ~/go-demo
     docker:
       - image: circleci/golang:1.8.1
       - image: postgres:9.6.2
     steps:
-      - attach_to_workspace:
-          paths: /go
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "main.go" }}
       - run: go test -v
 workflows:
   version: 2

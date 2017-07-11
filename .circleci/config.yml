@@ -12,10 +12,10 @@ jobs:
       - checkout
       - run: go get -t -d -v ./...
       - run: go build -v
-      - persist_to_workspace:
-          root: ~/go-demo
-          paths:
-            - src/
+      - save_cache:
+        key: demo-{{ .Branch }}-{{ checksum "main.go" }}
+        paths:
+          - src/
   test:
     working_directory: ~/go-demo
     docker:
@@ -25,9 +25,9 @@ jobs:
       - image: postgres:9.6.2
     steps:
       - checkout
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: src/
+      - restore_cache:
+        keys:
+          - demo-{{ .Branch }}-{{ checksum "main.go" }}
       - run: go test -v
 workflows:
   version: 2

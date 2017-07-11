@@ -5,9 +5,10 @@ jobs:
     docker:
       - image: circleci/golang:1.8.1
       - image: postgres:9.6.2
+      environment:
+        GOPATH=~/go-demo
     steps:
       - checkout
-      - run: export GOPATH=~/go-demo
       - run: go get -t -d -v ./...
       - run: go build -v
       - persist_to_workspace:
@@ -19,12 +20,13 @@ jobs:
     docker:
       - image: circleci/golang:1.8.1
       - image: postgres:9.6.2
+      environment:
+        GOPATH=~/go-demo
     steps:
       - checkout
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: src/
-      - run: export GOPATH=~/go-demo
       - run: go test -v
 workflows:
   version: 2

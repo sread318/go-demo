@@ -7,12 +7,9 @@ jobs:
       - image: postgres:9.6.2
     steps:
       - checkout
+      - run: export GOPATH=~/go-demo
       - run: go get -t -d -v ./...
       - run: go build -v
-      - persist_to_workspace:
-          root: /
-          paths:
-            - go
   test:
     working_directory: ~/go-demo
     docker:
@@ -20,9 +17,6 @@ jobs:
       - image: postgres:9.6.2
     steps:
       - checkout
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: /go
       - run: go test -v
 workflows:
   version: 2

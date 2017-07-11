@@ -10,6 +10,10 @@ jobs:
       - run: export GOPATH=~/go-demo
       - run: go get -t -d -v ./...
       - run: go build -v
+      - persist_to_workspace:
+          root: ~/go-demo
+          paths:
+            - src/
   test:
     working_directory: ~/go-demo
     docker:
@@ -17,6 +21,7 @@ jobs:
       - image: postgres:9.6.2
     steps:
       - checkout
+      - run: export GOPATH=~/go-demo
       - run: go test -v
 workflows:
   version: 2

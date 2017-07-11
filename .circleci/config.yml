@@ -15,7 +15,7 @@ jobs:
       - save_cache:
         key: demo-{{ .Branch }}-{{ checksum "main.go" }}
         paths:
-          - src/
+          - src/ 
   test:
     working_directory: ~/go-demo
     docker:

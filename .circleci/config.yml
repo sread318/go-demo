@@ -4,9 +4,10 @@ jobs:
     working_directory: ~/go-demo
     docker:
       - image: circleci/golang:1.8.1
+        environment:
+          GOPATH=~/go-demo
       - image: postgres:9.6.2
-      environment:
-        GOPATH=~/go-demo
+      
     steps:
       - checkout
       - run: go get -t -d -v ./...
@@ -19,9 +20,9 @@ jobs:
     working_directory: ~/go-demo
     docker:
       - image: circleci/golang:1.8.1
+        environment:
+          GOPATH=~/go-demo
       - image: postgres:9.6.2
-      environment:
-        GOPATH=~/go-demo
     steps:
       - checkout
       - attach_workspace:

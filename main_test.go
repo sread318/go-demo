@@ -11,18 +11,23 @@ var a App
 func TestMain(m *testing.M) {
 	a = App{}
 
+	// Start up application and open database connections
 	a.Initialize(
 		os.Getenv("TEST_DB_USERNAME"),
 		os.Getenv("TEST_DB_PASSWORD"),
 		os.Getenv("TEST_DB_NAME"),
 		os.Getenv("TEST_DB_HOST"))
 
+	// Check to see if the tableCreationQuery is able to successfully run
 	ensureTableExists()
 
+	// Run the web server
 	code := m.Run()
 
+	// Clear the database of any and all test data
 	clearTable()
 
+	// Exit the test
 	os.Exit(code)
 }
 

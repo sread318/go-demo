@@ -33,14 +33,17 @@ func ensureTableExists() {
 }
 
 func clearTable() {
-	a.DB.Exec("DELETE FROM products")
-	a.DB.Exec("ALTER SEQUENCE products_id_seq RESTART WITH 1")
+	a.DB.Exec("DELETE FROM posts")
+	a.DB.Exec("ALTER SEQUENCE posts_id_seq RESTART WITH 1")
 }
 
-const tableCreationQuery = `CREATE TABLE IF NOT EXISTS products
+const tableCreationQuery = `CREATE TABLE IF NOT EXISTS posts
 (
 id SERIAL,
 name TEXT NOT NULL,
-price NUMERIC(10,2) NOT NULL DEFAULT 0.00,
-CONSTRAINT products_pkey PRIMARY KEY (id)
+author TEXT NOT NULL,
+body TEXT NOT NULL,
+datecreated TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+dateupdated TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+CONSTRAINT posts_pkey PRIMARY KEY (id)
 )`

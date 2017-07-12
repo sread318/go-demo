@@ -13,7 +13,7 @@ jobs:
       - run: go get -t -d -v ./...
       - run: go build -v
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "main.go" }}
+          key: src-{{ .Branch }}-{{ checksum "main.go" }}
           paths:
             - "src/"
   test:
@@ -26,7 +26,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "main.go" }}
+          key: src-{{ .Branch }}-{{ checksum "main.go" }}
       - run: go test -v
 workflows:
   version: 2

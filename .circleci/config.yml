@@ -29,7 +29,6 @@ jobs:
         keys:
           - demo-{{ .Branch }}-{{ checksum "main.go" }}
       - run: go test -v
-      
 workflows:
   version: 2
   build_and_test:

@@ -13,9 +13,9 @@ jobs:
       - run: go get -t -d -v ./...
       - run: go build -v
       - save_cache:
-        key: demo-{{ .Branch }}-{{ checksum "main.go" }}
-        paths:
-          - src/ 
+          key: deps1-{{ .Branch }}-{{ checksum "main.go" }}
+          paths:
+            - "src/"
   test:
     working_directory: ~/go-demo
     docker:
@@ -26,8 +26,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - demo-{{ .Branch }}-{{ checksum "main.go" }}
+          key: deps1-{{ .Branch }}-{{ checksum "main.go" }}
       - run: go test -v
 workflows:
   version: 2

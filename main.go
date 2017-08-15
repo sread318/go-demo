@@ -1,14 +1,21 @@
 package main
 
+import (
+	"github.com/gin-gonic/gin"
+)
 
-import "os"
+var router *gin.Engine
 
-func main(){
-	a := App{}
-	a.Initialize(
-		os.Getenv("APP_DB_USERNAME"),
-		os.Getenv("APP_DB_PASSWORD"),
-		os.Getenv("APP_DB_NAME"),
-		os.Getenv("APP_DB_HOST"))
-	a.Run(":8080")
+func main() {
+
+	// Use the default router from gin
+	router = gin.Default()
+
+	// Use the templates from the templates folder
+	router.LoadHTMLGlob("templates/*")
+
+	initializeRoutes()
+
+	// start the application
+	router.Run()
 }

@@ -1,6 +1,11 @@
 {{template "header.html" .}}
 
-
+{{range .payload}}
+<a href="/articles/view/{{.ID}}">
+    <h2>{{.Title}}</h2>
+</a>
+<p>{{.Content}}</p>
+{{end}}
 
 {{template "footer.html" .}}
 

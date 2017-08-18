@@ -1,7 +1,7 @@
 {{template "header.html" .}}
 
 {{range .payload}}
-<a href="/articles/view/{{.ID}}">
+<a href="/article/view/{{.ID}}">
     <h2>{{.Title}}</h2>
 </a>
 <p>{{.Content}}</p>

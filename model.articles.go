@@ -9,8 +9,8 @@ type article struct {
 }
 
 var articleList = []article{
-	article{Title: "Article 1", Content: "Content for article one"},
-	article{Title: "Article 2", Content: "Content for article two"},
+	article{ID: 1, Title: "Article 1", Content: "Content for article one"},
+	article{ID: 2, Title: "Article 2", Content: "Content for article two"},
 }
 
 func getAllArticles() []article {

@@ -8,6 +8,7 @@ type article struct {
 	Content string `json:"content"`
 }
 
+// TODO: convert to loadArticle to articleList and saveArticle (append to articleList)
 var articleList = []article{
 	article{ID: 1, Title: "Article 1", Content: "Content for article one"},
 	article{ID: 2, Title: "Article 2", Content: "Content for article two"},

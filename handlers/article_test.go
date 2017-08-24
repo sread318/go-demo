@@ -8,12 +8,14 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/tylerconlee/go-demo/models"
 )
 
 func TestShowIndexPageUnauthenticated(t *testing.T) {
 	r := getRouter(true)
 
-	r.GET("/", showIndexPage)
+	r.GET("/", ShowIndexPage)
 
 	req, _ := http.NewRequest("GET", "/", nil)
 
@@ -35,7 +37,7 @@ func TestShowIndexPageUnauthenticated(t *testing.T) {
 func TestArticleListJSON(t *testing.T) {
 	r := getRouter(true)
 
-	r.GET("/", showIndexPage)
+	r.GET("/", ShowIndexPage)
 
 	req, _ := http.NewRequest("GET", "/", nil)
 	req.Header.Add("Accept", "application/json")
@@ -48,7 +50,7 @@ func TestArticleListJSON(t *testing.T) {
 		if err != nil {
 			return false
 		}
-		var articles []article
+		var articles []models.Article
 		err = json.Unmarshal(p, &articles)
 
 		return err == nil && len(articles) >= 2 && statusOK
@@ -58,7 +60,7 @@ func TestArticleListJSON(t *testing.T) {
 func TestArticleXML(t *testing.T) {
 	r := getRouter(true)
 
-	r.GET("/article/view/:article_id", getArticle)
+	r.GET("/article/view/:article_id", GetArticle)
 
 	req, _ := http.NewRequest("GET", "/article/view/1", nil)
 	req.Header.Add("Accept", "application/xml")
@@ -72,7 +74,7 @@ func TestArticleXML(t *testing.T) {
 			return false
 		}
 
-		var a article
+		var a models.Article
 
 		err = xml.Unmarshal(p, &a)
 

@@ -1,4 +1,4 @@
-package main
+package handlers
 
 import (
 	"net/http"
@@ -7,9 +7,10 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
+	"github.com/tylerconlee/go-demo/models"
 )
 
-var tmpArticleList []article
+var tmpArticleList []models.Article
 
 func TestMain(m *testing.M) {
 	gin.SetMode(gin.TestMode)
@@ -19,7 +20,7 @@ func TestMain(m *testing.M) {
 func getRouter(withTemplates bool) *gin.Engine {
 	r := gin.Default()
 	if withTemplates {
-		r.LoadHTMLGlob("templates/*")
+		r.LoadHTMLGlob("../templates/*")
 	}
 	return r
 }
@@ -35,9 +36,9 @@ func testHTTPResponse(t *testing.T, r *gin.Engine, req *http.Request, f func(w *
 }
 
 func saveLists() {
-	tmpArticleList = articleList
+	tmpArticleList = models.ArticleList
 }
 
 func restoreLists() {
-	articleList = tmpArticleList
+	models.ArticleList = tmpArticleList
 }

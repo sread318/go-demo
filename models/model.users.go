@@ -1,4 +1,4 @@
-package main
+package models
 
 import "errors"
 
@@ -9,7 +9,7 @@ type user struct {
 
 // TODO: Add in loadUser/saveUser
 
-func registerUser(username, password string) (*user, error) {
+func RegisterUser(username, password string) (*user, error) {
 	return nil, errors.New("Placeholder")
 }
 

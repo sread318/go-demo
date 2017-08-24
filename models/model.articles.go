@@ -1,4 +1,4 @@
-package main
+package models
 
 import "errors"
 
@@ -9,17 +9,17 @@ type article struct {
 }
 
 // TODO: convert to loadArticle to articleList and saveArticle (append to articleList)
-var articleList = []article{
+var ArticleList = []article{
 	article{ID: 1, Title: "Article 1", Content: "Content for article one"},
 	article{ID: 2, Title: "Article 2", Content: "Content for article two"},
 }
 
-func getAllArticles() []article {
-	return articleList
+func GetAllArticles() []article {
+	return ArticleList
 }
 
-func getArticleByID(id int) (*article, error) {
-	for _, a := range articleList {
+func GetArticleByID(id int) (*article, error) {
+	for _, a := range ArticleList {
 		if a.ID == id {
 			return &a, nil
 		}

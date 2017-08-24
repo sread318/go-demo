@@ -1,14 +1,34 @@
 package main
 
+import (
+	"net/http"
 
-import "os"
+	"github.com/gin-gonic/gin"
+)
 
-func main(){
-	a := App{}
-	a.Initialize(
-		os.Getenv("APP_DB_USERNAME"),
-		os.Getenv("APP_DB_PASSWORD"),
-		os.Getenv("APP_DB_NAME"),
-		os.Getenv("APP_DB_HOST"))
-	a.Run(":8080")
+var router *gin.Engine
+
+func main() {
+
+	// Use the default router from gin
+	router = gin.Default()
+
+	// Use the templates from the templates folder
+	router.LoadHTMLGlob("templates/*")
+
+	initializeRoutes()
+
+	// start the application
+	router.Run()
+}
+
+func render(c *gin.Context, data gin.H, templateName string) {
+	switch c.Request.Header.Get("Accept") {
+	case "application/json":
+		c.JSON(http.StatusOK, data["payload"])
+	case "application/xml":
+		c.XML(http.StatusOK, data["payload"])
+	default:
+		c.HTML(http.StatusOK, templateName, data)
+	}
 }

@@ -11,6 +11,7 @@ import (
 )
 
 var tmpArticleList []models.Article
+var tmpUserList []models.User
 
 func TestMain(m *testing.M) {
 	gin.SetMode(gin.TestMode)
@@ -37,8 +38,10 @@ func testHTTPResponse(t *testing.T, r *gin.Engine, req *http.Request, f func(w *
 
 func saveLists() {
 	tmpArticleList = models.ArticleList
+	tmpUserList = models.UserList
 }
 
 func restoreLists() {
 	models.ArticleList = tmpArticleList
+	models.UserList = tmpUserList
 }

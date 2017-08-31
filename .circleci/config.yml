@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/go-demo
     docker:
-      - image: circleci/golang:1.8.1
+      - image: circleci/golang:1.9
         environment:
           GOPATH=/home/circleci/go-demo
       - image: postgres:9.6.2
@@ -19,7 +19,7 @@ jobs:
   test:
     working_directory: ~/go-demo
     docker:
-      - image: circleci/golang:1.8.1
+      - image: circleci/golang:1.9
         environment:
           GOPATH=/home/circleci/go-demo
       - image: postgres:9.6.2
